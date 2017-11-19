@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var body: EditText
     private lateinit var sendButton: Button
     private lateinit var preference: SharedPreferences
+    private var isLaunchedFromIntent: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         var textFromIntent = ""
         if (Intent.ACTION_SEND == intent.action) {
             textFromIntent = intent.getStringExtra(Intent.EXTRA_TEXT)
+            isLaunchedFromIntent = true
         }
 
         setup(textFromIntent)
@@ -99,5 +101,12 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         intent.launchUrl(this, Uri.parse(url))
+
+        if (isLaunchedFromIntent) {
+            finish()
+        } else {
+            title.setText("")
+            body.setText("")
+        }
     }
 }
