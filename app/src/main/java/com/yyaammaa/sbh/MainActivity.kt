@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var title: EditText
     private lateinit var body: EditText
     private lateinit var sendButton: Button
-
     private lateinit var preference: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var textFromIntent = ""
-        if (Intent.ACTION_SEND.equals(intent.action)) {
+        if (Intent.ACTION_SEND == intent.action) {
             textFromIntent = intent.getStringExtra(Intent.EXTRA_TEXT)
         }
 
@@ -64,9 +63,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         body = findViewById(R.id.act_main_body)
-        if (bodyText.isNotEmpty()) {
-            body.setText(bodyText)
-        }
+        body.setText(bodyText)
         body.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 check()
